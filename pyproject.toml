@@ -7,7 +7,7 @@ authors = ["matheuscas <matheus.mcas@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^4.0.5"
-djangorestframework = "^3.13.1"
+django-ninja = "^0.19.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
