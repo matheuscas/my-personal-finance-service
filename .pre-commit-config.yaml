@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
     - id: trailing-whitespace
     - id: end-of-file-fixer
@@ -12,20 +12,20 @@ repos:
     - id: trailing-whitespace
     - id: detect-aws-credentials
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 22.10.0
     hooks:
       - id: black
         args:
           - --config=pyproject.toml
   - repo: https://github.com/pycqa/isort
-    rev: 5.5.4
+    rev: 5.10.1
     hooks:
       - id: isort
         files: \.(py)$
         args:
           - --settings-path=pyproject.toml
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.2
+    rev: v3.3.0
     hooks:
       - id: pyupgrade
         args:
@@ -48,7 +48,7 @@ repos:
         language: system
         name: run tests
         stages:
-        - push
+        - commit
         types:
         - python
   - repo: https://github.com/commitizen-tools/commitizen
@@ -70,3 +70,4 @@ repos:
         language: python
         language_version: python3
         types: [ python ]
+        args: ['-c', 'bandit.yaml']
