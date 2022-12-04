@@ -43,14 +43,14 @@ repos:
           - --config=pyproject.toml
   - repo: local
     hooks:
-      - id: tests
-        entry: pytest -v
-        language: system
-        name: run tests
-        stages:
-        - commit
-        types:
-        - python
+      - id: pytest
+        name: pytest
+        entry: /Users/matheuscas/Library/Caches/pypoetry/virtualenvs/my-personal-finance-service-l5qIUBt--py3.11/bin/pytest
+        language: script
+        pass_filenames: false
+        # alternatively you could `types: [python]` so it only runs when python files change
+        # though tests might be invalidated if you were to say change a data file
+        always_run: true
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.27.1
     hooks:
