@@ -63,10 +63,11 @@ repos:
         args: ['-c', 'bandit.yaml']
   - repo: local
     hooks:
-      - id: pytest
-        name: pytest
+      - id: pytest-check
+        name: pytest-check
+        stages: [ push ]
+        types: [ python ]
         entry: pytest
         language: system
         pass_filenames: false
         always_run: true
-        stages: [push]
