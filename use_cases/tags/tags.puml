@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+"User" as User
+User --> (Create tag)
+User --> (Change tag label)
+User --> (Change tag color)
+User --> (Delete tag)
+User --> (Read all tags)
+@enduml
