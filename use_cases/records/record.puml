@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+"User" as User
+User --> (Create record)
+User --> (Change record)
+User --> (Delete record)
+User --> (Read one record)
+User --> (Read all records)
+@enduml
