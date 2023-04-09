@@ -773,6 +773,14 @@ doc = ["cairosvg (>=2.5.2,<3.0.0)", "mdx-include (>=1.4.1,<2.0.0)", "mkdocs (>=1
 test = ["black (>=22.3.0,<23.0.0)", "coverage (>=6.2,<7.0)", "isort (>=5.0.6,<6.0.0)", "mypy (==0.910)", "pytest (>=4.4.0,<8.0.0)", "pytest-cov (>=2.10.0,<5.0.0)", "pytest-sugar (>=0.9.4,<0.10.0)", "pytest-xdist (>=1.32.0,<4.0.0)", "rich (>=10.11.0,<13.0.0)", "shellingham (>=1.3.0,<2.0.0)"]
 
 [[package]]
+name = "types-mock"
+version = "5.0.0.6"
+description = "Typing stubs for mock"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "types-python-slugify"
 version = "8.0.0.1"
 description = "Typing stubs for python-slugify"
@@ -836,7 +844,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "b0697639fc000b88f130574879cdecff73f7dc1b2d27a87fef1e95bc20a7b0ac"
+content-hash = "ffbcd8e07867c0806d964b327500e7e8a44645d9d0aaeb41591313640b4e9a93"
 
 [metadata.files]
 argcomplete = [
@@ -1359,6 +1367,10 @@ tomlkit = [
 typer = [
     {file = "typer-0.7.0-py3-none-any.whl", hash = "sha256:b5e704f4e48ec263de1c0b3a2387cd405a13767d2f907f44c1a08cbad96f606d"},
     {file = "typer-0.7.0.tar.gz", hash = "sha256:ff797846578a9f2a201b53442aedeb543319466870fbe1c701eab66dd7681165"},
+]
+types-mock = [
+    {file = "types-mock-5.0.0.6.tar.gz", hash = "sha256:3abdee238948c6678ef5b4fd740bd41d30289a2fe4d91aac4ae9f6869e6c9333"},
+    {file = "types_mock-5.0.0.6-py3-none-any.whl", hash = "sha256:6946f4b2240160a1740db7d6c8e8736705acd133afd98555897db0116d41a6fc"},
 ]
 types-python-slugify = [
     {file = "types-python-slugify-8.0.0.1.tar.gz", hash = "sha256:f2177d2e65ecf2eca742d28fbf236a8d919a72e68272d1d748c3fe965e5ea3ab"},

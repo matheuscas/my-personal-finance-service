@@ -33,6 +33,7 @@ pytest-cov = "^4.0.0"
 flake8-bugbear = "^23.1.14"
 pytest-xdist = "^3.1.0"
 mypy = "^1.1.1"
+types-mock = "^5.0.0.6"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
