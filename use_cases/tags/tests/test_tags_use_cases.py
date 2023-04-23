@@ -4,11 +4,8 @@ from unittest.mock import MagicMock
 import pytest
 
 from entities.entities import Tag
-from use_cases.tags.tags import (
-    ExistingTagException,
-    MissingTagException,
-    TagsUseCases,
-)
+from use_cases.tags.exceptions import ExistingTagException, MissingTagException
+from use_cases.tags.tags import TagsUseCases
 
 mock_name = "My Mom"
 mock_color = "#FF0000"

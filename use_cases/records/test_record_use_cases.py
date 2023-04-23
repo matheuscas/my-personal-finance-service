@@ -6,12 +6,12 @@ from unittest.mock import MagicMock
 import pytest
 
 from entities.entities import Account, Expense, Record, RecordType, Tag
-from use_cases.records.records import (
+from use_cases.records.exceptions import (
     RecordMissingIdException,
     RecordNotFoundException,
-    RecordUseCases,
 )
-from use_cases.tags.tags import MissingTagException
+from use_cases.records.records import RecordUseCases
+from use_cases.tags.exceptions import MissingTagException
 
 
 class RecordServiceProtocolMock:

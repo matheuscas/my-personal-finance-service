@@ -20,14 +20,6 @@ class TagServiceProtocol(Protocol):
         ...
 
 
-class ExistingTagException(Exception):
-    msg = "Tag already exists"
-
-
-class MissingTagException(Exception):
-    msg = "Tag does not exist"
-
-
 class TagsUseCases:
     def __init__(self, tag_service: TagServiceProtocol):
         self.tag_service = tag_service
