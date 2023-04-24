@@ -3,7 +3,7 @@ from typing import Optional, Protocol
 from entities.entities import Tag
 
 
-class TagServiceProtocol(Protocol):
+class TagsRepository(Protocol):
     def create(self, name: str, color: Optional[str] = None) -> Tag:
         ...
 
@@ -21,7 +21,7 @@ class TagServiceProtocol(Protocol):
 
 
 class TagsUseCases:
-    def __init__(self, tag_service: TagServiceProtocol):
+    def __init__(self, tag_service: TagsRepository):
         self.tag_service = tag_service
 
     def create_tag(self, name, color) -> Tag:

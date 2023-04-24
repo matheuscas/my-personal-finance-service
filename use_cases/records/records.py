@@ -3,7 +3,7 @@ from typing import Protocol
 from entities.entities import Record
 
 
-class RecordServiceProtocol(Protocol):
+class RecordsRepository(Protocol):
     def create(self, record: Record) -> Record:
         ...
 
@@ -18,7 +18,7 @@ class RecordServiceProtocol(Protocol):
 
 
 class RecordUseCases:
-    def __init__(self, service: RecordServiceProtocol):
+    def __init__(self, service: RecordsRepository):
         self.service = service
 
     def create_record(self, record: Record) -> Record:
