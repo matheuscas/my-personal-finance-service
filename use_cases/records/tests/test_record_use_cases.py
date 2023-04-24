@@ -29,10 +29,19 @@ class RecordServiceProtocolMock:
 
 
 mock = RecordServiceProtocolMock()
-account = Account("Main", Decimal("0.0"))
 
 
-def test_create_record_with_tags_use_case():
+@pytest.fixture(scope="function")
+def account():
+    return Account(
+        str(uuid.uuid4()),
+        user_id=str(uuid.uuid4()),
+        name="Main",
+        balance=Decimal("0.0"),
+    )
+
+
+def test_create_record_with_tags_use_case(account):
     tags = [Tag("Bills"), Tag("House")]
     record = Expense(
         None,
@@ -61,7 +70,7 @@ def test_create_record_with_tags_use_case():
     assert record_created.tags == expected_record.tags
 
 
-def test_create_record_without_tags_use_case():
+def test_create_record_without_tags_use_case(account):
     record = Expense(
         None, "Water", Decimal("10.34"), datetime(2023, 4, 8), account=account
     )
@@ -84,7 +93,7 @@ def test_create_record_without_tags_use_case():
     assert record_created.tags is None
 
 
-def test_update_record_raising_missing_id_exception_use_case():
+def test_update_record_raising_missing_id_exception_use_case(account):
     record_to_be_updated = Expense(
         None, "Water", Decimal("10.34"), datetime(2023, 4, 8), account=account
     )
@@ -98,7 +107,7 @@ def test_update_record_raising_missing_id_exception_use_case():
         )
 
 
-def test_update_record_raising_record_not_found_exception_use_case():
+def test_update_record_raising_record_not_found_exception_use_case(account):
     record_to_be_updated = Expense(
         None, "Water", Decimal("10.34"), datetime(2023, 4, 8), account=account
     )
@@ -109,7 +118,7 @@ def test_update_record_raising_record_not_found_exception_use_case():
         assert str(exc) == "records not found"
 
 
-def test_update_record_raising_missing_tag_use_case():
+def test_update_record_raising_missing_tag_use_case(account):
     missing_tag = Tag("Car")
     record_to_be_updated = Expense(
         "123",
@@ -131,7 +140,7 @@ def test_update_record_raising_missing_account_use_case():
     ...
 
 
-def test_update_record_use_case():
+def test_update_record_use_case(account):
     tags = [Tag("Bills"), Tag("House")]
     record_id = str(uuid.uuid4())
     record = Expense(
@@ -178,7 +187,7 @@ def test_delete_record_raising_missing_record_exception_use_case():
         assert str(exc) == "record not found"
 
 
-def test_get_record_use_case():
+def test_get_record_use_case(account):
     record_id = str(uuid.uuid4())
     record = Expense(
         record_id,
