@@ -6,14 +6,6 @@ from typing import Optional
 
 
 @dataclass(frozen=True)
-class User:
-    name: str
-    email: str
-    password: str
-    id: Optional[str] = None
-
-
-@dataclass(frozen=True)
 class Account:
     id: str | None
     balance: Decimal | None
