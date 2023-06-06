@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+"System" as System
+"User" as User
+System --> (Create user)
+System --> (Get user)
+User --> (Update user)
+User --> (Get user)
+@enduml

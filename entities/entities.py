@@ -7,10 +7,10 @@ from typing import Optional
 
 @dataclass(frozen=True)
 class User:
-    id: str | None
     name: str
     email: str
     password: str
+    id: Optional[str] = None
 
 
 @dataclass(frozen=True)
