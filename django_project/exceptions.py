@@ -49,7 +49,7 @@ def custom_exception_handler(exc, ctx):
 
         return response
 
-    if isinstance(exc.detail, (list, dict)):
+    if isinstance(exc.detail, list | dict):
         response.data = {"detail": response.data}
 
     if isinstance(exc, exceptions.ValidationError):

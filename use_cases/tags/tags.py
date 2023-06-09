@@ -1,10 +1,10 @@
-from typing import Optional, Protocol
+from typing import Protocol
 
 from entities.entities import Tag
 
 
 class TagsRepository(Protocol):
-    def create(self, name: str, color: Optional[str] = None) -> Tag:
+    def create(self, name: str, color: str | None = None) -> Tag:
         ...
 
     def update(self, name: str, tag: Tag) -> Tag:

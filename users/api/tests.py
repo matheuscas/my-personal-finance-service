@@ -84,7 +84,7 @@ def test_wrong_email_format(api_client):
     }
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_existing_user_error(api_client):
     user = User(name="John Doe", email="johndoe@me.com", password="password")
     custom_user = {

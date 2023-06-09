@@ -1,4 +1,3 @@
-from typing import Optional
 from unittest.mock import MagicMock
 
 import pytest
@@ -14,7 +13,7 @@ mock_slug = "my_mom"
 
 class TagServiceProtocolMock:
     # this a detail (database) implementation that is not important here
-    def create(self, name: str, color: Optional[str] = None) -> Tag:  # type: ignore
+    def create(self, name: str, color: str | None = None) -> Tag:
         ...
 
     def update(self, name: str, new_tag: Tag) -> Tag:  # type: ignore

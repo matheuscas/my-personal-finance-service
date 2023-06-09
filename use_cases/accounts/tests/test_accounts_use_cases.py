@@ -96,7 +96,8 @@ def test_update_account_use_case_when_account_does_not_exist(
 def test_update_account_use_case_when_user_does_not_exist(
     account_to_be_updated,
 ):
-    # TODO Implement this test case after User use cases are doen due to a MissingUserException
+    # TODO Implement this test case after User use cases
+    # are done due to a MissingUserException
     ...
 
 

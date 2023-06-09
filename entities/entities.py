@@ -2,7 +2,6 @@ from dataclasses import KW_ONLY, dataclass, field
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -17,7 +16,7 @@ class Account:
 @dataclass(frozen=True)
 class Tag:
     name: str
-    color: Optional[str] = None
+    color: str | None = None
 
 
 class RecordType(Enum):
@@ -33,7 +32,7 @@ class Record:
     date: datetime
     account: Account
     type: RecordType
-    tags: Optional[list[Tag]] = None
+    tags: list[Tag] | None = None
 
 
 @dataclass(frozen=True)
