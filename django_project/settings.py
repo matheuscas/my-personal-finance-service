@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # Local
     "tags.apps.TagsConfig",
     "users.apps.UsersConfig",
+    # 3rd party
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
