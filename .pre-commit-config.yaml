@@ -19,44 +19,15 @@ repos:
     - id: trailing-whitespace
     - id: detect-aws-credentials
   - repo: https://github.com/psf/black
-    rev: 22.10.0
+    rev: 23.3.0
     hooks:
       - id: black
         args:
           - --config=pyproject.toml
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-        files: \.(py)$
-        args:
-          - --settings-path=pyproject.toml
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.0
-    hooks:
-      - id: pyupgrade
-        args:
-          - --py36-plus
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.3
-    hooks:
-    - id: flake8
-
-  - repo: https://github.com/hadialqattan/pycln
-    rev: v0.0.1-beta.3
-    hooks:
-      - id: pycln
-        args:
-          - --config=pyproject.toml
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.27.1
+    rev: v3.2.2
     hooks:
       - id: commitizen
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.0
-    hooks:
-      - id: pyupgrade
-        args: [ --py37-plus ]
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.4
     hooks:
@@ -68,3 +39,7 @@ repos:
         language_version: python3
         types: [ python ]
         args: ['-c', 'bandit.yaml']
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.272"
+    hooks:
+      - id: ruff
