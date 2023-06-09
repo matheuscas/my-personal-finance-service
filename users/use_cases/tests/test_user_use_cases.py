@@ -4,12 +4,12 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from use_cases.users.exceptions import (
+from users.entities import User
+from users.use_cases.exceptions import (
     ExistingUserException,
     UserNotFoundException,
 )
-from use_cases.users.users import UserUseCases
-from users.entities import User
+from users.use_cases.users import UserUseCases
 
 
 class UserRepositoryMock:
