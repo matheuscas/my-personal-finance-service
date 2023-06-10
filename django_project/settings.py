@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from urllib.parse import quote
 
+import dj_database_url
 import environ
 
 env = environ.Env()
@@ -84,14 +86,12 @@ WSGI_APPLICATION = "django_project.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DATABASE"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST"),
-        "PORT": env("POSTGRES_PORT"),
-    }
+    "default": dj_database_url.parse(
+        f"postgres://{env('POSTGRES_USER')}:{quote(env('POSTGRES_PASSWORD'))}@{env('POSTGRES_HOST')}:{env('POSTGRES_PORT')}/{env('POSTGRES_DATABASE')}",
+        conn_max_age=600,
+        conn_health_checks=True,
+        test_options={"NAME": env("TEST_DB_NAME")},
+    )
 }
 
 
