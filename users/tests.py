@@ -2,6 +2,12 @@ import contextlib
 
 import pytest
 from django.contrib.auth import get_user_model
+from users.entities import User
+from users.models import UserRepository
+from users.use_cases.exceptions import (
+    ExistingUserException,
+    UserNotFoundException,
+)
 
 
 # from https://testdriven.io/blog/django-custom-user-model/
@@ -43,3 +49,61 @@ def test_create_superuser():
         User.objects.create_superuser(
             email="super@user.com", password="foo", is_superuser=False
         )
+
+
+@pytest.fixture
+def repo():
+    return UserRepository()
+
+
+@pytest.fixture
+def user():
+    return User(name="John Doe", email="johndoe@me.com", password="password")
+
+
+@pytest.mark.django_db
+def test_user_repository_create(repo, user):
+    created_user = repo.create(user)
+    assert created_user.id is not None
+    assert created_user.email == user.email
+    assert created_user.name == user.name
+
+
+@pytest.mark.django_db
+def test_user_repository_create_existing_email(repo, user):
+    repo.create(user)
+    with pytest.raises(ExistingUserException) as e:
+        repo.create(user)
+        assert str(e.value) == ExistingUserException.msg
+
+
+@pytest.mark.django_db
+def test_user_repository_update(repo, user):
+    created_user = repo.create(user)
+    changed_user = User(
+        name="Jane Doe", email="johndoe@me.com", password="password2"
+    )
+    updated_user = repo.update(created_user.id, changed_user)
+    assert updated_user.id is not None
+    assert updated_user.name == changed_user.name
+
+
+@pytest.mark.django_db
+def test_user_repository_update_user_not_found(repo, user):
+    with pytest.raises(UserNotFoundException) as e:
+        repo.update(user.id, user)
+        assert str(e.value) == UserNotFoundException.msg
+
+
+@pytest.mark.django_db
+def test_user_repository_get(repo, user):
+    created_user = repo.create(user)
+    user_found = repo.get(created_user.id)
+    assert user_found.id == created_user.id
+
+
+@pytest.mark.django_db
+def test_user_repository_get_user_not_found(repo, user):
+    with pytest.raises(UserNotFoundException) as e:
+        repo.get(user.id)
+        assert str(e.value) == UserNotFoundException.msg

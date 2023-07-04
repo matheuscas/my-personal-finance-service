@@ -1,10 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import IntegrityError, models
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ObjectDoesNotExist
 
 from .entities import User
 from .managers import CustomUserManager
-from .use_cases.exceptions import ExistingUserException
+from .use_cases.exceptions import ExistingUserException, UserNotFoundException
 
 
 class CustomUser(AbstractUser):
@@ -44,7 +45,20 @@ class UserRepository:
         )
 
     def update(self, id: str, user: User) -> User:
-        ...
+        user_to_update = self.get(id)
+        user_updated = {
+            "first_name": user.name,
+        }
+        CustomUser.objects.update(**user_updated)
+        return User(
+            name=user.name,
+            email=user_to_update.email,
+            password=user_to_update.password,
+            id=user_to_update.id,
+        )
 
     def get(self, id: str) -> User:
-        ...
+        try:
+            return CustomUser.objects.get(id=id)
+        except ObjectDoesNotExist as e:
+            raise UserNotFoundException() from e
