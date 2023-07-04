@@ -58,7 +58,12 @@ def repo():
 
 @pytest.fixture
 def user():
-    return User(name="John Doe", email="johndoe@me.com", password="password")
+    return User(
+        first_name="John",
+        last_name="Smith",
+        email="johndoe@me.com",
+        password="password",
+    )
 
 
 @pytest.mark.django_db
@@ -66,7 +71,8 @@ def test_user_repository_create(repo, user):
     created_user = repo.create(user)
     assert created_user.id is not None
     assert created_user.email == user.email
-    assert created_user.name == user.name
+    assert created_user.first_name == user.first_name
+    assert created_user.last_name == user.last_name
 
 
 @pytest.mark.django_db
@@ -81,11 +87,15 @@ def test_user_repository_create_existing_email(repo, user):
 def test_user_repository_update(repo, user):
     created_user = repo.create(user)
     changed_user = User(
-        name="Jane Doe", email="johndoe@me.com", password="password2"
+        first_name="Jane",
+        last_name="Smith",
+        email="johndoe@me.com",
+        password="password2",
     )
     updated_user = repo.update(created_user.id, changed_user)
     assert updated_user.id is not None
-    assert updated_user.name == changed_user.name
+    assert updated_user.first_name == changed_user.first_name
+    assert updated_user.last_name == changed_user.last_name
 
 
 @pytest.mark.django_db

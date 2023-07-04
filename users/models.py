@@ -28,7 +28,8 @@ class CustomUser(AbstractUser):
 class UserRepository:
     def create(self, user: User) -> User:
         custom_user = {
-            "first_name": user.name,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "email": user.email,
             "password": user.password,
         }
@@ -38,7 +39,8 @@ class UserRepository:
             raise ExistingUserException() from e
 
         return User(
-            name=created_user.first_name,
+            first_name=created_user.first_name,
+            last_name=created_user.last_name,
             email=created_user.email,
             password=created_user.password,
             id=created_user.id,
@@ -47,11 +49,13 @@ class UserRepository:
     def update(self, id: str, user: User) -> User:
         user_to_update = self.get(id)
         user_updated = {
-            "first_name": user.name,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
         }
         CustomUser.objects.update(**user_updated)
         return User(
-            name=user.name,
+            first_name=user.first_name,
+            last_name=user.last_name,
             email=user_to_update.email,
             password=user_to_update.password,
             id=user_to_update.id,
