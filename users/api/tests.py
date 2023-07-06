@@ -19,7 +19,8 @@ def api_client():
     [
         (
             {
-                "name": "John Doe",
+                "first_name": "John",
+                "last_name": "Smith",
                 "email": "johndoe@me.com",
             },
             {
@@ -33,7 +34,8 @@ def api_client():
         ),
         (
             {
-                "name": "John Doe",
+                "first_name": "John",
+                "last_name": "Smith",
                 "password": "password",
             },
             {
@@ -47,14 +49,30 @@ def api_client():
         ),
         (
             {
-                "password": "password",
+                "last_name": "Smith",
                 "email": "johndoe@me.com",
+                "password": "password",
             },
             {
                 "message": "Validation error",
                 "extra": {
                     "fields": {
-                        "name": ["This field is required."],
+                        "first_name": ["This field is required."],
+                    }
+                },
+            },
+        ),
+        (
+            {
+                "first_name": "John",
+                "email": "johndoe@me.com",
+                "password": "password",
+            },
+            {
+                "message": "Validation error",
+                "extra": {
+                    "fields": {
+                        "last_name": ["This field is required."],
                     }
                 },
             },
@@ -70,7 +88,12 @@ def test_required_user_fields(api_client, payload, expected_error):
 def test_wrong_email_format(api_client):
     response = api_client.post(
         "/api/users/",
-        {"name": "John Doe", "email": "johndoeme.com", "password": "password"},
+        {
+            "first_name": "John",
+            "last_name": "Smith",
+            "email": "johndoeme.com",
+            "password": "password",
+        },
         format="json",
     )
     assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -86,9 +109,15 @@ def test_wrong_email_format(api_client):
 
 @pytest.mark.django_db()
 def test_existing_user_error(api_client):
-    user = User(name="John Doe", email="johndoe@me.com", password="password")
+    user = User(
+        first_name="John",
+        last_name="Doe",
+        email="johndoe@me.com",
+        password="password",
+    )
     custom_user = {
-        "first_name": user.name,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
         "email": user.email,
         "password": user.password,
     }

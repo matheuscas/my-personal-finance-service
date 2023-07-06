@@ -10,12 +10,14 @@ from users.use_cases.users import UserUseCases
 
 class UsersView(APIView):
     class InputSerializer(serializers.Serializer):
-        name = serializers.CharField()
+        first_name = serializers.CharField()
+        last_name = serializers.CharField()
         email = serializers.EmailField()
         password = serializers.CharField()
 
     class OutputSerializer(serializers.Serializer):
-        name = serializers.CharField()
+        first_name = serializers.CharField()
+        last_name = serializers.CharField()
         email = serializers.EmailField()
         id = serializers.CharField()
 
@@ -27,7 +29,8 @@ class UsersView(APIView):
         try:
             created_user = use_cases.create_user(
                 User(
-                    name=data.validated_data["name"],
+                    first_name=data.validated_data["first_name"],
+                    last_name=data.validated_data["last_name"],
                     email=data.validated_data["email"],
                     password=data.validated_data["password"],
                 )
