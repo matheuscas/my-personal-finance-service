@@ -22,6 +22,9 @@ class UserRepositoryMock:
     def get(self, id: str) -> User:
         ...
 
+    def get_by_email(self, email: str) -> User:
+        ...
+
 
 mock = UserRepositoryMock()
 
@@ -106,8 +109,33 @@ def test_get_user_use_case():
     assert user_found.password == user.password
 
 
+def test_get_user_by_email_use_case():
+    user = User(
+        id=str(uuid.uuid4()),
+        first_name="Matheus",
+        last_name="Cardoso",
+        email="kJqfR@example.com",
+        password=hashlib.sha256(b"1234").hexdigest(),
+    )
+    mock.get_by_email = MagicMock(return_value=user)
+    use_cases = UserUseCases(mock)
+    user_found = use_cases.get_user_by_email(user.email)
+    assert user_found.id == user.id
+    assert user_found.first_name == user.first_name
+    assert user_found.last_name == user.last_name
+    assert user_found.email == user.email
+    assert user_found.password == user.password
+
+
 def test_user_not_found_use_case():
     mock.get = MagicMock(side_effect=UserNotFoundException)
+    use_cases = UserUseCases(mock)
+    with pytest.raises(UserNotFoundException):
+        use_cases.get_user(str(uuid.uuid4()))
+
+
+def test_user_not_found_by_email_use_case():
+    mock.get_by_email = MagicMock(side_effect=UserNotFoundException)
     use_cases = UserUseCases(mock)
     with pytest.raises(UserNotFoundException):
         use_cases.get_user(str(uuid.uuid4()))
