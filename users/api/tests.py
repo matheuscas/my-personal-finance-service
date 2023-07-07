@@ -6,7 +6,10 @@ from rest_framework.test import APIClient
 
 from users.entities import User
 from users.models import CustomUser
-from users.use_cases.exceptions import ExistingUserException
+from users.use_cases.exceptions import (
+    ExistingUserException,
+    UserNotFoundException,
+)
 
 
 @pytest.fixture(scope="session")
@@ -127,17 +130,83 @@ def test_existing_user_error(api_client):
     assert response.data == {"message": ExistingUserException.msg, "extra": {}}
 
 
-def test_not_found_user_error():
-    ...
+@pytest.mark.django_db()
+def test_not_found_user_error(api_client):
+    response = api_client.get("/api/users/1/")
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+    assert response.data == {"message": UserNotFoundException.msg, "extra": {}}
 
 
-def test_user_creation():
-    ...
+@pytest.mark.django_db()
+def test_not_found_user_by_email_error(api_client):
+    response = api_client.get("/api/users/?email=johndoe@me.com")
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+    assert response.data == {"message": UserNotFoundException.msg, "extra": {}}
 
 
-def test_user_update():
-    ...
+@pytest.mark.django_db()
+def test_required_update_user_fields(api_client):
+    response = api_client.put("/api/users/1/", {}, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.data == {
+        "message": "Validation error",
+        "extra": {"fields": {"fields": ["You must send at least one field."]}},
+    }
 
 
-def test_user_read():
-    ...
+@pytest.mark.django_db()
+def test_user_creation(api_client):
+    user = User(
+        first_name="John",
+        last_name="Doe",
+        email="johndoe@me.com",
+        password="password",
+    )
+    response = api_client.post("/api/users/", asdict(user), format="json")
+    assert response.status_code == status.HTTP_201_CREATED
+
+
+@pytest.mark.django_db()
+def test_user_update(api_client):
+    user = User(
+        first_name="John",
+        last_name="Doe",
+        email="johndoe@me.com",
+        password="password",
+    )
+    created_user = CustomUser.objects.create_user(**asdict(user))
+    new_user = {
+        **asdict(user),
+        "first_name": "Matheus",
+        "last_name": "Silva",
+    }
+    response = api_client.put(
+        f"/api/users/{created_user.id}/", new_user, format="json"
+    )
+    assert response.status_code == status.HTTP_200_OK
+
+
+@pytest.mark.django_db()
+def test_user_get(api_client):
+    user = User(
+        first_name="John",
+        last_name="Doe",
+        email="johndoe@me.com",
+        password="password",
+    )
+    created_user = CustomUser.objects.create_user(**asdict(user))
+    response = api_client.get(f"/api/users/{created_user.id}/")
+    assert response.status_code == status.HTTP_200_OK
+
+
+@pytest.mark.django_db()
+def test_user_get_by_email(api_client):
+    user = User(
+        first_name="John",
+        last_name="Doe",
+        email="johndoe@me.com",
+        password="password",
+    )
+    created_user = CustomUser.objects.create_user(**asdict(user))
+    response = api_client.get(f"/api/users/?email={created_user.email}")
+    assert response.status_code == status.HTTP_200_OK

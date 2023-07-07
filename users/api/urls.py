@@ -4,4 +4,5 @@ from .views import UsersView
 
 urlpatterns = [
     path("users/", UsersView.as_view()),
+    path("users/<int:id>/", UsersView.as_view()),
 ]
