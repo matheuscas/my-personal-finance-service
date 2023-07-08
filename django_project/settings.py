@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # 3rd party
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -145,5 +146,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.CustomUser"
 
 REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "django_project.exceptions.custom_exception_handler"
+    "EXCEPTION_HANDLER": "django_project.exceptions.custom_exception_handler",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "API's doc",
+    "DESCRIPTION": "Once more personal finance API",
+    "VERSION": "0.0.1",
+    "SERVE_INCLUDE_SCHEMA": False,
 }

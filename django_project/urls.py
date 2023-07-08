@@ -15,27 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.schemas import get_schema_view
-from django.views.generic import TemplateView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("users.api.urls")),
     path(
-        "openapi/",
-        get_schema_view(
-            title="Once again, one more personal finance service",
-            description="API docs",
-            version="0.0.1",
-        ),
-        name="openapi-schema",
-    ),
-    path(
         "",
-        TemplateView.as_view(
-            template_name="swagger-ui.html",
-            extra_context={"schema_url": "openapi-schema"},
-        ),
+        SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
 ]
