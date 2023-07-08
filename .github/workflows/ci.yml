@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
-  checks:
-    needs: build
-
     steps:
       - name: Run tests
         run: |
