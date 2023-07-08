@@ -13,7 +13,7 @@ mock_slug = "my_mom"
 
 class TagServiceProtocolMock:
     # this a detail (database) implementation that is not important here
-    def create(self, name: str, color: str | None = None) -> Tag:
+    def create(self, name: str, color: str | None = None) -> Tag:  # type: ignore
         ...
 
     def update(self, name: str, new_tag: Tag) -> Tag:  # type: ignore

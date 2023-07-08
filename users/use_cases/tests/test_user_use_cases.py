@@ -13,13 +13,13 @@ from users.use_cases.users import UserUseCases
 
 
 class UserRepositoryMock:
-    def create(self, user: User) -> User:
+    def create(self, user: User) -> User:  # type: ignore
         ...
 
-    def update(self, id: str, user: User) -> User:
+    def update(self, id: str, user: User) -> User:  # type: ignore
         ...
 
-    def get(self, id: str) -> User:
+    def get(self, id: str) -> User:  # type: ignore
         ...
 
 

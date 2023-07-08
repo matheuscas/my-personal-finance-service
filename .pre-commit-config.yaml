@@ -48,4 +48,5 @@ repos:
     hooks:
       - id: mypy
         name: mypy
+        stages: [push]
         additional_dependencies: ['mypy']
