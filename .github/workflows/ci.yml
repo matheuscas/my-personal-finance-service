@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        uses: ./dependencies.yml
+        uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
       - name: Run tests
         run: |
