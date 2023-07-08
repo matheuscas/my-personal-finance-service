@@ -39,9 +39,13 @@ jobs:
         run: |
           poetry run pytest
 
-      - name: Check linting and formatting
+      - name: Check linting
         run: |
-          poetry run ruff lint
+          poetry run ruff check .
+
+      - name: Check formmatting
+        run: |
+          poetry run black .
 
       - name: Type checking
         run: poetry run mypy .
