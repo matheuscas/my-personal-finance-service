@@ -16,13 +16,12 @@ env:
 
 jobs:
   build:
-    # runs-on: ubuntu-latest
     uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  checks:
+    needs: build
 
+    steps:
       - name: Run tests
         run: |
           poetry run pytest
