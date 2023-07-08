@@ -9,7 +9,6 @@ on:
       - main
 
 env:
-  PYTHONUNBUFFERED: '1'
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
   DEBUG: ${{ vars.DEBUG }}
   DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
@@ -23,16 +22,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies with Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="$HOME/.poetry/bin:$PATH"
-          poetry install --no-root --no-interaction
+      - name: Install Dependencies
+        uses: ./dependencies.yml
 
       - name: Run tests
         run: |
