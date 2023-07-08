@@ -109,7 +109,7 @@ def test_user_repository_update_user_not_found(repo, user):
 def test_user_repository_get(repo, user):
     created_user = repo.create(user)
     user_found = repo.get(created_user.id)
-    assert user_found.id == created_user.id
+    assert user_found.id == str(created_user.id)
 
 
 @pytest.mark.django_db

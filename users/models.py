@@ -13,13 +13,14 @@ class CustomUser(AbstractUser):
     from https://testdriven.io/blog/django-custom-user-model/#abstractuser
     """
 
-    username = None
+    username = None  # type: ignore
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    # the correct type is UserManager[BaseUserManager]
+    objects = CustomUserManager()  # type: ignore
 
     def __str__(self):
         return self.email
@@ -63,6 +64,13 @@ class UserRepository:
 
     def get(self, id: str) -> User:
         try:
-            return CustomUser.objects.get(id=id)
+            custom_user = CustomUser.objects.get(id=id)
+            return User(
+                first_name=custom_user.first_name,
+                last_name=custom_user.last_name,
+                email=custom_user.email,
+                password="",
+                id=str(custom_user.id),
+            )
         except ObjectDoesNotExist as e:
             raise UserNotFoundException() from e
