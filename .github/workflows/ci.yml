@@ -48,4 +48,6 @@ jobs:
           poetry run black .
 
       - name: Type checking
+        env:
+            SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: poetry run mypy .
