@@ -16,14 +16,12 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install Dependencies
-        uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
       - name: Run tests
         run: |
