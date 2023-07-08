@@ -49,5 +49,8 @@ jobs:
 
       - name: Type checking
         env:
-            SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: ${{ vars.DEBUG }}
+          DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
+          TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
         run: poetry run mypy .
