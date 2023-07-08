@@ -16,8 +16,9 @@ env:
 
 jobs:
   build:
-    uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
     runs-on: ubuntu-latest
+    uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
+
   checks:
     needs: build
 
