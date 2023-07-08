@@ -66,9 +66,3 @@ class UserRepository:
             return CustomUser.objects.get(id=id)
         except ObjectDoesNotExist as e:
             raise UserNotFoundException() from e
-
-    def get_by_email(self, email: str) -> User:
-        try:
-            return CustomUser.objects.get(email=email)
-        except ObjectDoesNotExist as e:
-            raise UserNotFoundException() from e

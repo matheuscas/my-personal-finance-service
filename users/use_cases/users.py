@@ -13,9 +13,6 @@ class UserRepository(Protocol):
     def get(self, id: str) -> User:
         ...
 
-    def get_by_email(self, email: str) -> User:
-        ...
-
 
 class UserUseCases:
     def __init__(self, user_repository: UserRepository):
@@ -29,6 +26,3 @@ class UserUseCases:
 
     def get_user(self, id: str) -> User:
         return self.user_repository.get(id)
-
-    def get_user_by_email(self, email: str) -> User:
-        return self.user_repository.get_by_email(email)

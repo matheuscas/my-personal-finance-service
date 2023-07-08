@@ -138,13 +138,6 @@ def test_not_found_user_error(api_client):
 
 
 @pytest.mark.django_db()
-def test_not_found_user_by_email_error(api_client):
-    response = api_client.get("/api/users/?email=johndoe@me.com")
-    assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.data == {"message": UserNotFoundException.msg, "extra": {}}
-
-
-@pytest.mark.django_db()
 def test_required_update_user_fields(api_client):
     response = api_client.put("/api/users/1/", {}, format="json")
     assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -196,17 +189,4 @@ def test_user_get(api_client):
     )
     created_user = CustomUser.objects.create_user(**asdict(user))
     response = api_client.get(f"/api/users/{created_user.id}/")
-    assert response.status_code == status.HTTP_200_OK
-
-
-@pytest.mark.django_db()
-def test_user_get_by_email(api_client):
-    user = User(
-        first_name="John",
-        last_name="Doe",
-        email="johndoe@me.com",
-        password="password",
-    )
-    created_user = CustomUser.objects.create_user(**asdict(user))
-    response = api_client.get(f"/api/users/?email={created_user.email}")
     assert response.status_code == status.HTTP_200_OK

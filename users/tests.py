@@ -117,17 +117,3 @@ def test_user_repository_get_user_not_found(repo, user):
     with pytest.raises(UserNotFoundException) as e:
         repo.get(user.id)
         assert str(e.value) == UserNotFoundException.msg
-
-
-@pytest.mark.django_db
-def test_user_repository_get_by_email(repo, user):
-    created_user = repo.create(user)
-    user_found = repo.get_by_email(created_user.email)
-    assert user_found.email == created_user.email
-
-
-@pytest.mark.django_db
-def test_user_repository_get_user_by_email_not_found(repo, user):
-    with pytest.raises(UserNotFoundException) as e:
-        repo.get_by_email(user.email)
-        assert str(e.value) == UserNotFoundException.msg
