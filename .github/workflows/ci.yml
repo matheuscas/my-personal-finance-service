@@ -1,4 +1,4 @@
-name: Django CI
+name: Tests, Linting, Formatting, and Type Checking
 
 on:
   push:
@@ -10,6 +10,10 @@ on:
 
 env:
   PYTHONUNBUFFERED: '1'
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEBUG: ${{ vars.DEBUG }}
+  DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
+  TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
 
 jobs:
   build:
@@ -31,11 +35,6 @@ jobs:
           poetry install --no-root --no-interaction
 
       - name: Run tests
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DEBUG: ${{ vars.DEBUG }}
-          DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
-          TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
         run: |
           poetry run pytest
 
@@ -48,9 +47,4 @@ jobs:
           poetry run black .
 
       - name: Type checking
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DEBUG: ${{ vars.DEBUG }}
-          DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
-          TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
         run: poetry run mypy .
