@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+env:
+  PYTHONUNBUFFERED: '1'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +31,13 @@ jobs:
           poetry install --no-root --no-interaction
 
       - name: Run tests
-        run: poetry run pytest
+        run: |
+          poetry run pytest
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: ${{ secrets.DEBUG }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
 
       - name: Check linting and formatting
         run: |
