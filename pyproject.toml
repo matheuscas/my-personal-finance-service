@@ -16,6 +16,8 @@ dj-database-url = "^2.0.0"
 environ = "^1.0"
 django-environ = "^0.10.0"
 drf-spectacular = "^0.26.3"
+django-stubs = "^4.2.3"
+djangorestframework-stubs = "^3.14.2"
 
 [tool.poetry.dev-dependencies]
 toml = "^0.10.2"
@@ -106,3 +108,9 @@ max-complexity = 10
 DJANGO_SETTINGS_MODULE="django_project.settings"
 python_files = "test_*.py tests.py"
 env_files = ".env"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "django_project.settings"
