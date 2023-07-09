@@ -15,12 +15,13 @@ env:
   TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
 
 jobs:
-  deps:
-    uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
+  # deps:
+  #   uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
 
   checks:
+    needs: dependencies
     runs-on: ubuntu-latest
-    needs: deps
+
     steps:
       - name: Run tests
         run: |
