@@ -1,2 +1,2 @@
 test:
-	python -Wonce::DeprecationWarning -Im pytest -n 4 -x
+	python -Wonce::DeprecationWarning -Im pytest --cov="." --cov-report=html -n auto
