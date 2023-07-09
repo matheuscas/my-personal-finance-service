@@ -9,20 +9,31 @@ on:
       - main
 
 env:
+  PYTHONUNBUFFERED: '1'
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
   DEBUG: ${{ vars.DEBUG }}
   DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
   TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
 
 jobs:
-  # deps:
-  #   uses: matheuscas/my-personal-finance-service/.github/workflows/dependencies.yml@main
-
-  checks:
-    needs: dependencies
+  install-deps:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies with Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.poetry/bin:$PATH"
+          poetry install --no-root --no-interaction
+
       - name: Run tests
         run: |
           poetry run pytest
