@@ -1,2 +1,2 @@
 test:
-	poetry run pytest --cov="." --cov-report=json -n auto
+	poetry run pytest --cov="." --cov-report=xml -n auto
