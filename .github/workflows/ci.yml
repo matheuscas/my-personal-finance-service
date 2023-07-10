@@ -16,15 +16,15 @@ env:
   TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
 
 jobs:
-  install-deps:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
@@ -36,7 +36,12 @@ jobs:
 
       - name: Run tests
         run: |
-          poetry run pytest
+          make test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Check linting
         run: |

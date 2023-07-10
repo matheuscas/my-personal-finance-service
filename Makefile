@@ -1,2 +1,2 @@
 test:
-	python -Wonce::DeprecationWarning -Im pytest --cov="." --cov-report=html -n auto
+	poetry run pytest --cov="." --cov-report=xml -n auto
