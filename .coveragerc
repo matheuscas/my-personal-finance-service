@@ -1,9 +1,12 @@
 [run]
 omit =
     *apps.py,
-    *migrations/*.py,
-    *settings*.py,
-    *tests/*.py,
+    */migrations/*,
+    */settings*.py,
+    */tests/*,
+    tests_*.py
+    test_*.py
+    test*.py
     *urls.py,
     *wsgi.py,
     *asgi.py,
