@@ -1,0 +1,16 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+
+component_management:
+  individual_components:
+    - component_id: tags  # this is an identifier that should not be changed
+      name: tags  # this is a display name, and can be changed freely
+      paths:
+        - tags
+    - component_id: users  # this is an identifier that should not be changed
+      name: users  # this is a display name, and can be changed freely
+      paths:
+        - users
